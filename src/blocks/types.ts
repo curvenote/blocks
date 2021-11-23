@@ -180,6 +180,7 @@ export interface PartialBlock {
   kind: KINDS;
   title: string;
   description: string;
+  caption: string;
   name: string | null;
   authors: Author[];
   tags: string[];
@@ -188,8 +189,6 @@ export interface PartialBlock {
 }
 
 export interface Block extends PartialBlock {
-  title: string;
-  description: string;
   published: boolean;
   published_versions: number[];
   latest_version: number | null;
