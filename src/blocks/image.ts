@@ -3,7 +3,6 @@ import { KINDS, BaseVersion, ImageFormatTypes, FileMetadata } from './types';
 
 // Code that has not yet been saved / versioned
 export type PartialImage = {
-  caption: string | null;
   file_name: string | null;
 } & FileMetadata;
 
@@ -19,7 +18,6 @@ export function fromDTO(json: JsonObject): PartialImage {
     size: json.size ?? 0,
     content_type: json.content_type ?? '',
     md5: json.md5 ?? '',
-    caption: json.caption ?? null,
     file_name: json.file_name ?? null,
   };
 }
