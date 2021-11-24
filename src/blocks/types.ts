@@ -178,7 +178,7 @@ export interface PartialBlock {
   kind: KINDS;
   title: string;
   description: string;
-  caption: string;
+  caption: string | null;
   name: string | null;
   authors: Author[];
   tags: string[];
@@ -207,7 +207,7 @@ export interface BaseVersion extends BasePartialVersion {
   kind: KINDS;
   title: string;
   description: string;
-  caption: string;
+  caption: string | null;
   created_by: string;
   date_created: Date;
   version: number;
