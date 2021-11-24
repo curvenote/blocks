@@ -18,8 +18,6 @@ export const EditableKINDS = new Set([
   KINDS.Notebook,
   KINDS.Content,
   KINDS.Navigation,
-  KINDS.Image,
-  KINDS.Output,
 ]);
 
 export enum ContentFormatTypes {
