@@ -209,6 +209,7 @@ export interface BaseVersion extends BasePartialVersion {
   kind: KINDS;
   title: string;
   description: string;
+  caption: string;
   created_by: string;
   date_created: Date;
   version: number;
