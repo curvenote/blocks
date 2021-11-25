@@ -216,7 +216,6 @@ export interface BaseVersion extends BasePartialVersion {
   links: VersionLinks;
 }
 
-// QUESTION: LinkedBlockId, or BlockID or ChildBlockId
 export type SrcId = {
   project: string;
   block: string;
@@ -224,14 +223,26 @@ export type SrcId = {
   draft: string | null;
 };
 
+export type Alignment = 'left' | 'center' | 'right';
+
+export interface FigureStyles {
+  width?: number;
+  align?: Alignment;
+  numbered?: boolean;
+}
+
+export interface FormatOptions {
+  references?: CitationStyles | string;
+  figures?: FigureStyles;
+}
+
 export type BlockChild = {
   id: ChildId;
   src: SrcId;
+  style: FigureStyles | null;
 };
 
-export type NotebookCodeBlockChild = {
-  id: ChildId;
-  src: SrcId;
+export type NotebookCodeBlockChild = BlockChild & {
   output?: SrcId;
 };
 
