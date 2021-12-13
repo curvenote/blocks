@@ -229,11 +229,12 @@ export interface FigureStyles {
   width?: number;
   align?: Alignment;
   numbered?: boolean;
+  caption?: boolean;
 }
 
 export interface FormatOptions {
   references?: CitationStyles | string;
-  figures?: FigureStyles;
+  figures?: FigureStyles & { label?: string };
 }
 
 export type BlockChild = {
