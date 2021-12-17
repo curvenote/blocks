@@ -1,5 +1,6 @@
 import { JsonObject, BaseLinks } from './types';
 import { getDate } from './helpers';
+import { BlockId } from './blocks/types';
 
 export interface CommentId {
   project: string;
@@ -16,8 +17,9 @@ export interface DecorationRange {
   to: number;
 }
 
-export interface InlineContext {
-  text: string;
+export interface CommentContext {
+  container: BlockId | null;
+  text: string | null;
   version: number | null;
   draft: string | null;
   step: number | null;
@@ -29,7 +31,7 @@ export interface PartialComment {
   resolved: boolean;
   content: string;
   parent: string | null;
-  context: InlineContext | null;
+  context: CommentContext | null;
 }
 
 export interface Comment extends PartialComment {
@@ -37,17 +39,20 @@ export interface Comment extends PartialComment {
   resolved: boolean;
   resolved_by: string | null;
   edited: boolean;
-  parent: string | null;
   children: string[];
   date_created: Date;
   date_modified: Date;
   links: CommentLinks;
 }
 
-export function inlineContextFromDTO(data?: JsonObject): InlineContext | null {
+export function inlineContextFromDTO(data?: JsonObject): CommentContext | null {
   if (!data) return null;
+  const container = data.container
+    ? { project: data.container.project, block: data.container.block }
+    : null;
   const ranges = (data.ranges as DecorationRange[])?.map(({ from, to }) => ({ from, to })) ?? [];
   return {
+    container,
     text: data.text,
     version: data.version ?? null,
     draft: data.draft ?? null,
