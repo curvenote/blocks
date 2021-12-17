@@ -9,6 +9,10 @@ export const blockListToString = (id: ProjectId): string => `${id}/blocks`;
 export const blockIdToString = (id: BlockId): string => {
   return `${id.project}/${id.block}`;
 };
+export const blockIdFromString = (str: string): BlockId => {
+  const [project, block] = str.split('/');
+  return { project, block };
+};
 export const versionListToString = (id: BlockId): string => `${id.project}/${id.block}/versions`;
 export const versionIdToString = (id: VersionId): string =>
   `${id.project}/${id.block}/${id.version}`;
