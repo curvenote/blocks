@@ -1,14 +1,27 @@
 import { JsonObject, BaseLinks } from './types';
 import { getDate } from './helpers';
 
-export type CommentId = {
+export interface CommentId {
   project: string;
   block: string;
   comment: string;
-};
+}
 
 export interface CommentLinks extends BaseLinks {
   block: string;
+}
+
+export interface DecorationRange {
+  from: number;
+  to: number;
+}
+
+export interface InlineContext {
+  text: string;
+  version: number | null;
+  draft: string | null;
+  step: number | null;
+  ranges: DecorationRange[];
 }
 
 export interface PartialComment {
@@ -16,6 +29,7 @@ export interface PartialComment {
   resolved: boolean;
   content: string;
   parent: string | null;
+  context: InlineContext | null;
 }
 
 export interface Comment extends PartialComment {
@@ -28,8 +42,18 @@ export interface Comment extends PartialComment {
   date_created: Date;
   date_modified: Date;
   links: CommentLinks;
-  // version: id;
-  // quote?
+}
+
+export function inlineContextFromDTO(data?: JsonObject): InlineContext | null {
+  if (!data) return null;
+  const ranges = (data.ranges as DecorationRange[])?.map(({ from, to }) => ({ from, to })) ?? [];
+  return {
+    text: data.text,
+    version: data.version ?? null,
+    draft: data.draft ?? null,
+    step: data.step ?? null,
+    ranges,
+  };
 }
 
 export function commentFromDTO(commentId: CommentId, json: JsonObject): Comment {
@@ -45,5 +69,6 @@ export function commentFromDTO(commentId: CommentId, json: JsonObject): Comment 
     date_created: getDate(json.date_created),
     date_modified: getDate(json.date_modified),
     links: { ...json.links },
+    context: inlineContextFromDTO(json.context),
   };
 }
