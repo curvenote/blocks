@@ -18,7 +18,7 @@ export interface DecorationRange {
 }
 
 export interface CommentContext {
-  container: BlockId | null;
+  container: BlockId;
   text: string | null;
   version: number | null;
   draft: string | null;
@@ -31,7 +31,7 @@ export interface PartialComment {
   resolved: boolean;
   content: string;
   parent: string | null;
-  context: CommentContext | null;
+  context: CommentContext;
 }
 
 export interface Comment extends PartialComment {
@@ -45,11 +45,19 @@ export interface Comment extends PartialComment {
   links: CommentLinks;
 }
 
-export function inlineContextFromDTO(data?: JsonObject): CommentContext | null {
-  if (!data) return null;
-  const container = data.container
+export function inlineContextFromDTO(commentId: CommentId, data?: JsonObject): CommentContext {
+  const container = data?.container
     ? { project: data.container.project, block: data.container.block }
-    : null;
+    : { project: commentId.project, block: commentId.block };
+  if (!data)
+    return {
+      container,
+      text: null,
+      version: null,
+      draft: null,
+      step: null,
+      ranges: [],
+    };
   const ranges = (data.ranges as DecorationRange[])?.map(({ from, to }) => ({ from, to })) ?? [];
   return {
     container,
@@ -74,6 +82,6 @@ export function commentFromDTO(commentId: CommentId, json: JsonObject): Comment 
     date_created: getDate(json.date_created),
     date_modified: getDate(json.date_modified),
     links: { ...json.links },
-    context: inlineContextFromDTO(json.context),
+    context: inlineContextFromDTO(commentId, json.context),
   };
 }
