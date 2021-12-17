@@ -20,6 +20,11 @@ export const commentListToString = (id: BlockId): string => `${id.project}/${id.
 export const commentIdToString = (id: CommentId): string => {
   return `${id.project}/${id.block}/${id.comment}`;
 };
+export const commentIdFromString = (str: string): CommentId => {
+  const [project, block, comment] = str.split('/');
+  return { project, block, comment };
+};
+
 export const stepIdToString = (id: StepId): string =>
   `${id.project}/${id.block}/${id.draft}/${id.step}`;
 export const stepListToString = (id: DraftId): string =>
