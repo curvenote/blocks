@@ -3,7 +3,8 @@ import { KINDS, BaseVersion, ReferenceFormatTypes } from './types';
 
 export interface PartialReference {
   link: string;
-  content: string;
+  content: string; // formatted content
+  ris: Record<string, any> | null; // research information system
 }
 
 // the versioned block
@@ -17,5 +18,6 @@ export function fromDTO(json: JsonObject): PartialReference {
   return {
     link: json.link ?? '',
     content: json.content ?? '',
+    ris: json.ris ?? null
   };
 }
