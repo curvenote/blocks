@@ -237,7 +237,6 @@ export interface FigureFormatOptions {
 }
 
 export interface ReferenceFormatOptions {
-  format: ReferenceFormatTypes;
   style: CitationStyles | string;
 }
 
