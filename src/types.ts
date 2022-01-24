@@ -1,5 +1,3 @@
-import { ArticleFormatTypes } from './blocks';
-
 export interface JsonObject {
   [index: string]: any;
 }
