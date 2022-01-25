@@ -3,7 +3,7 @@ import { ArticleFormatTypes } from './blocks/types';
 export interface Template {
   id: string;
   owner?: string;
-  kind?: ArticleFormatTypes;
+  kind: ArticleFormatTypes;
   commit: string;
   description: string;
   author: {
