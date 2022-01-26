@@ -2,7 +2,8 @@ import { ArticleFormatTypes } from './blocks/types';
 
 export interface Template {
   id: string;
-  owner?: string;
+  is_private?: boolean;
+  owner: string;
   kind: ArticleFormatTypes;
   commit: string;
   description: string;
