@@ -1,4 +1,4 @@
-import { BlockId } from './blocks/types';
+import { BlockChild, BlockId } from './blocks/types';
 import {
   projectIdToString,
   blockListToString,
@@ -7,7 +7,6 @@ import {
   ensureConsistentChildren,
 } from './utils';
 import { ProjectId } from './projects';
-import { BlockChild } from '../dist';
 
 const CASES: [string, { url: string; owner: string; repo: string; provider: string }][] = [
   [
